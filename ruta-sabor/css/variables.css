@@ -1,0 +1,18 @@
+/* ===== CSS VARIABLES ===== */
+:root {
+  --accent: #D4A24E;
+  --accent-soft: #D4A24E22;
+  --bg: #FAF8F4;
+  --surface: #FFFFFF;
+  --surface-light: #F0EBE3;
+  --border: #E5E0D6;
+  --text: #2C2C2C;
+  --text-sec: #5C3D2E;
+  --text-muted: #9B8B7A;
+  --green: #3A7D44;
+  --green-soft: #3A7D4420;
+  --red: #C4574C;
+  --blue: #5B9BD5;
+  --star: #F5C543;
+  --coffee: #C67A52;
+}

@@ -1,0 +1,54 @@
+/* ===== RESENAS ===== */
+.review-summary {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.review-score { display: flex; gap: 20px; align-items: center; }
+.big-score { font-size: 48px; font-weight: 700; color: var(--accent); }
+.stars { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.star-row { display: flex; align-items: center; gap: 8px; }
+.star-row span { font-size: 11px; color: var(--text-muted); width: 10px; }
+.star-bar { flex: 1; height: 6px; background: var(--surface-light); border-radius: 3px; }
+.star-fill { height: 100%; background: var(--accent); border-radius: 3px; }
+.review-count { font-size: 12px; color: var(--text-muted); }
+
+.reviews-header {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.reviews-header h3 { font-size: 15px; font-weight: 600; }
+.sort-select {
+  font-size: 12px; color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: var(--surface);
+  font-family: inherit;
+}
+
+.review-card {
+  display: flex; gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0ece5;
+}
+.review-avatar {
+  width: 40px; height: 40px; min-width: 40px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.review-body { flex: 1; }
+.review-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.review-top strong { font-size: 13px; }
+.review-stars { font-size: 12px; color: var(--star); }
+.review-date { font-size: 11px; color: var(--text-muted); }
+.review-body p { font-size: 13px; color: var(--text-sec); line-height: 1.4; margin-top: 6px; }
+.review-location { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; margin-top: 6px; }
+.review-location i { font-size: 12px; }
+.review-actions { display: flex; gap: 16px; margin-top: 8px; }
+.review-like, .review-util {
+  font-size: 12px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 4px;
+  cursor: pointer;
+}
+.review-like.liked { color: var(--accent); }
+.review-like i { font-size: 14px; }

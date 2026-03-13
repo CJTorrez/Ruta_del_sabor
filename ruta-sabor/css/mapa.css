@@ -1,0 +1,92 @@
+/* ===== MAPA ===== */
+.mapa-search-row {
+  display: flex; gap: 8px; padding: 0 24px;
+  flex-shrink: 0;
+}
+.mapa-search-row .search-bar { flex: 1; }
+.filter-btn {
+  width: 44px; height: 44px; min-width: 44px;
+  background: var(--accent);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.filter-btn i { font-size: 18px; color: #1A1207; }
+.mapa-no-results {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 8px 24px;
+  color: var(--text-muted); font-size: 13px;
+}
+.mapa-no-results i { font-size: 16px; }
+
+.filter-pills {
+  display: flex; gap: 8px; padding: 8px 24px 6px;
+  flex-shrink: 0;
+}
+.pill {
+  height: 32px; padding: 0 12px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 12px; font-weight: 500; color: var(--text-sec);
+  display: flex; align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pill.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1A1207;
+  font-weight: 600;
+}
+
+.map-area {
+  flex: 1; position: relative;
+  overflow: hidden;
+}
+.map-placeholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(180deg, #4a6741, #2d4a2d, #1a3318);
+  position: relative;
+}
+.map-fallback {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 100%; color: #fff; gap: 8px;
+}
+.map-fallback i { font-size: 48px; opacity: 0.6; }
+.map-fallback p { font-size: 16px; font-weight: 600; }
+.map-sub { font-size: 12px; opacity: 0.6; }
+
+.map-pin {
+  position: absolute; cursor: pointer;
+  font-size: 36px; transform: translate(-50%, -100%);
+  transition: transform 0.2s;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.3));
+}
+.map-pin:hover { transform: translate(-50%, -100%) scale(1.2); }
+.pin-coffee { color: var(--coffee); }
+.pin-green { color: var(--green); }
+.pin-accent { color: var(--accent); }
+
+.map-card {
+  position: absolute; bottom: 16px; left: 16px; right: 16px;
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  animation: slideUp 0.3s ease;
+  z-index: 1000;
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.map-card-inner {
+  display: flex; gap: 12px; margin-bottom: 12px;
+}
+.producer-img-small {
+  width: 56px; height: 56px; min-width: 56px;
+  border-radius: 12px;
+}
+.map-card-info h3 { font-size: 14px; font-weight: 600; }
+.map-card-actions { display: flex; gap: 8px; }

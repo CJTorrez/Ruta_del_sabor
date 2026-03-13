@@ -1,0 +1,73 @@
+/* ===== PERFIL ===== */
+.perfil-hero {
+  width: 100%; height: 220px;
+  position: relative;
+  flex-shrink: 0;
+}
+.perfil-hero-overlay {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 50px 24px 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.4), transparent);
+}
+.perfil-content {
+  flex: 1; overflow-y: auto;
+  padding: 20px 24px 30px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.perfil-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.perfil-header h1 { font-size: 22px; font-weight: 700; }
+.perfil-type { font-size: 12px; color: var(--text-muted); }
+.perfil-rating {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 16px; font-weight: 600; color: var(--accent);
+}
+.perfil-rating i { color: var(--star); font-size: 18px; }
+
+.perfil-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+.perfil-badge {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 12px; color: var(--text-sec); font-weight: 500;
+}
+.perfil-badge i { font-size: 14px; }
+
+.perfil-section h2 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+.perfil-section p { font-size: 14px; color: var(--text-sec); line-height: 1.5; }
+
+.perfil-gallery { display: flex; gap: 8px; overflow-x: auto; }
+.gallery-img {
+  width: 120px; height: 90px; min-width: 120px;
+  border-radius: 12px;
+}
+
+.perfil-actions {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+}
+.action-btn {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px; padding: 14px 0;
+  background: var(--surface);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.action-btn:active { transform: scale(0.93); }
+.action-btn i { font-size: 20px; color: var(--text-sec); }
+.action-btn span { font-size: 11px; font-weight: 500; color: var(--text-sec); }
+.action-highlight {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.action-highlight i { color: var(--accent); }
+.action-highlight span { color: var(--accent); font-weight: 600; }
+
+.impact-card {
+  background: var(--green-soft);
+  border: 1px solid #3A7D4433;
+  border-radius: 14px;
+  padding: 16px;
+}
+.impact-card h3 { font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 4px; }
+.impact-card p { font-size: 12px; color: var(--text-sec); line-height: 1.4; }

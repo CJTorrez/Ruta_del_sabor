@@ -1,0 +1,97 @@
+/* ===== RUTAS ===== */
+.ruta-featured {
+  height: 160px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+.ruta-featured-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 16px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: #fff;
+}
+.ruta-badge {
+  font-size: 9px; font-weight: 700;
+  background: var(--accent);
+  color: #1A1207;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.ruta-featured-overlay h3 { font-size: 18px; font-weight: 700; }
+.ruta-meta { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+
+.ruta-stops { display: flex; flex-direction: column; gap: 0; }
+.ruta-stop {
+  display: flex; gap: 16px;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-radius: 12px;
+}
+.ruta-stop:hover { background: var(--surface); padding: 12px 8px; margin: 0 -8px; }
+
+.stop-line {
+  display: flex; flex-direction: column; align-items: center;
+  width: 16px; padding-top: 4px;
+}
+.stop-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 3px solid var(--accent);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+.stop-connector {
+  width: 2px; flex: 1;
+  background: var(--border);
+  margin-top: 4px;
+}
+.stop-info { flex: 1; }
+.stop-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; }
+.stop-info strong { font-size: 14px; }
+.stop-info p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.stop-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.tag {
+  font-size: 11px; padding: 3px 10px;
+  background: var(--surface-light);
+  border-radius: 8px;
+  color: var(--text-sec);
+}
+
+/* ===== RUTA LIST CARDS ===== */
+.ruta-list-card {
+  display: flex; gap: 12px; padding: 12px;
+  background: var(--surface); border-radius: 16px;
+  margin-bottom: 4px; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.ruta-list-card:active { transform: scale(0.98); }
+.ruta-list-img {
+  width: 80px; height: 80px; min-width: 80px;
+  border-radius: 12px;
+}
+.ruta-list-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.ruta-list-info h4 { font-size: 14px; font-weight: 600; margin: 0; }
+.ruta-list-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.ruta-list-tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+
+/* ===== RUTA DATE PICKER ===== */
+.ruta-date-picker {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--surface); border-radius: 14px;
+  padding: 12px 16px; margin-bottom: 4px;
+}
+.ruta-date-picker > i { font-size: 20px; color: var(--accent); }
+.ruta-date-info { flex: 1; display: flex; flex-direction: column; }
+.ruta-date-label { font-size: 12px; color: var(--text-muted); }
+.ruta-date-input {
+  border: none; outline: none; background: none;
+  font-family: inherit; font-size: 14px; font-weight: 500;
+  color: var(--text); padding: 2px 0; cursor: pointer;
+}
+.ruta-date-selected {
+  font-size: 12px; color: var(--green); font-weight: 500;
+  white-space: nowrap;
+}

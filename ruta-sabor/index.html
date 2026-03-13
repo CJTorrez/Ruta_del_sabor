@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ruta Sabor</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/lucide-static@latest/font/lucide.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/mapa.css">
+  <link rel="stylesheet" href="css/perfil.css">
+  <link rel="stylesheet" href="css/pago.css">
+  <link rel="stylesheet" href="css/escaneo.css">
+  <link rel="stylesheet" href="css/rutas.css">
+  <link rel="stylesheet" href="css/resenas.css">
+  <link rel="stylesheet" href="css/navegacion.css">
+  <link rel="stylesheet" href="css/crear-ruta.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ============ SCREEN: HOME ============ -->
+    <div class="screen active" id="screen-home">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <i class="lucide lucide-signal"></i>
+          <i class="lucide lucide-wifi"></i>
+          <i class="lucide lucide-battery-full"></i>
+        </div>
+      </div>
+
+      <div class="header-home">
+        <div class="header-left">
+          
+          <h1 class="brand-title">Ruta Sabor</h1>
+          <span class="brand-sub">Descubre lo que no aparece en Google</span>
+        </div>
+        <div class="header-right">
+          <div class="notif-btn" onclick="showToast('No tienes notificaciones nuevas')">
+            <i class="lucide lucide-bell"></i>
+            <img src="../images/logo.png" alt="Logo Ruta del Sabor" class="logo">
+          </div>
+        </div>
+      </div>
+
+      <div class="content-scroll">
+        <div class="search-bar" onclick="toggleSearch()">
+          <i class="lucide lucide-search"></i>
+          <span>Buscar productores, fincas, comedores...</span>
+        </div>
+
+        <div class="impact-banner">
+          <div class="impact-icon">
+            <i class="material-symbols-rounded">group</i>
+          </div>
+          <div class="impact-info">
+            <span class="impact-title">87 productores conectados</span>
+            <span class="impact-sub">Tu visita genera empleo directo en comunidades rurales</span>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <h2>Productores por categoria</h2>
+        </div>
+
+        <div class="cat-grid">
+          <div class="cat-card" onclick="filterCategory(this, 'cafe')">
+            <span class="cat-emoji">☕</span>
+            <span class="cat-name">Cafe</span>
+            <span class="cat-count">34 fincas</span>
+          </div>
+          <div class="cat-card" onclick="filterCategory(this, 'cacao')">
+            <span class="cat-emoji">🍫</span>
+            <span class="cat-name">Cacao</span>
+            <span class="cat-count">18 fincas</span>
+          </div>
+          <div class="cat-card" onclick="filterCategory(this, 'comedor')">
+            <span class="cat-emoji">🍽️</span>
+            <span class="cat-name">Comedores</span>
+            <span class="cat-count">14 locales</span>
+          </div>
+          <div class="cat-card cat-active" onclick="filterCategory(this, 'todos')">
+            <span class="cat-emoji">🌿</span>
+            <span class="cat-name">Todos</span>
+            <span class="cat-count">87 total</span>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <h2>Cerca de ti ahora</h2>
+          <a class="section-link" onclick="navigateTo('screen-mapa')">Ver mapa</a>
+        </div>
+
+        <div class="near-cards">
+          <div class="producer-card" onclick="navigateTo('screen-perfil')">
+            <div class="producer-img" style="background: url('../images/generated-1770910374617.png') center/cover"></div>
+            <div class="producer-info">
+              <h3>Don Manuel - Cafe de Altura</h3>
+              <span class="producer-type">Finca familiar · Copan Ruinas</span>
+              <div class="producer-meta">
+                <span class="rating"><i class="lucide lucide-star"></i> 4.9</span>
+                <span class="distance">1.2 km</span>
+                <span class="badge-digital">Acepta pago digital</span>
+              </div>
+            </div>
+          </div>
+          <div class="producer-card" onclick="navigateTo('screen-perfil')">
+            <div class="producer-img" style="background: url('../images/generated-1770907197182.png') center/cover"></div>
+            <div class="producer-info">
+              <h3>Comedor Dona Rosa</h3>
+              <span class="producer-type">Comida tipica · Santa Rosa de Copan</span>
+              <div class="producer-meta">
+                <span class="rating"><i class="lucide lucide-star"></i> 4.7</span>
+                <span class="distance">3.5 km</span>
+              </div>
+            </div>
+          </div>
+          <div class="producer-card" onclick="navigateTo('screen-perfil')">
+            <div class="producer-img" style="background: url('../images/generated-1770907045931.png') center/cover"></div>
+            <div class="producer-info">
+              <h3>Finca Don Jose - Cacao</h3>
+              <span class="producer-type">Cacao fino · La Cumbre</span>
+              <div class="producer-meta">
+                <span class="rating"><i class="lucide lucide-star"></i> 4.8</span>
+                <span class="distance">2.1 km</span>
+                <span class="badge-digital">Acepta pago digital</span>
+              </div>
+            </div>
+          </div>
+          <div class="producer-card" onclick="navigateTo('screen-perfil')">
+            <div class="producer-img" style="background: url('../images/generated-1770907151316.png') center/cover"></div>
+            <div class="producer-info">
+              <h3>Miel Los Pinos</h3>
+              <span class="producer-type">Miel organica · Valle de Angeles</span>
+              <div class="producer-meta">
+                <span class="rating"><i class="lucide lucide-star"></i> 4.6</span>
+                <span class="distance">4.2 km</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-bar" id="tabbar-home">
+        <div class="tab active" onclick="navigateTo('screen-home')">
+          <i class="material-symbols-rounded">explore</i>
+          <span>Descubrir</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-mapa')">
+          <i class="material-symbols-rounded">map</i>
+          <span>Mapa</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-escaneo')">
+          <i class="material-symbols-rounded">qr_code_scanner</i>
+          <span>Escanear</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-rutas')">
+          <i class="material-symbols-rounded">route</i>
+          <span>Rutas</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-pago')">
+          <i class="material-symbols-rounded">payments</i>
+          <span>Pagar</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SCREEN: MAPA ============ -->
+    <div class="screen" id="screen-mapa">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <i class="lucide lucide-signal"></i>
+          <i class="lucide lucide-wifi"></i>
+          <i class="lucide lucide-battery-full"></i>
+        </div>
+      </div>
+
+      <div class="inner-header">
+        <div class="inner-header-row">
+          <i class="material-symbols-rounded back-btn" onclick="navigateTo('screen-home')">arrow_back</i>
+          <div class="inner-title-col">
+            <h2>Productores cerca de ti</h2>
+            <span class="inner-sub">Negocios que te encontraste en otros apps</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mapa-search-row">
+        <div class="search-bar small">
+          <i class="lucide lucide-search"></i>
+          <input type="text" class="search-input" placeholder="Buscar zona o productor" oninput="searchMapProducers(this.value)">
+        </div>
+        <div class="filter-btn" onclick="searchMapProducers(document.querySelector('.mapa-search-row .search-input').value)">
+          <i class="material-symbols-rounded">search</i>
+        </div>
+      </div>
+      <div class="mapa-no-results" id="mapa-no-results" style="display:none;">
+        <i class="lucide lucide-search-x"></i>
+        <span>No se encontraron resultados</span>
+      </div>
+
+      <div class="filter-pills">
+        <div class="pill active" data-filter="todos" onclick="togglePill(this)">Todos</div>
+        <div class="pill" data-filter="cafe" onclick="togglePill(this)">☕ Cafe</div>
+        <div class="pill" data-filter="comedor" onclick="togglePill(this)">🍽️ Comedor</div>
+        <div class="pill" data-filter="cacao" onclick="togglePill(this)">🍫 Cacao</div>
+      </div>
+
+      <div class="map-area">
+        <div id="leaflet-map" style="width:100%;height:100%;z-index:0;"></div>
+
+        <div class="map-card" id="map-card" style="display:none">
+          <div class="map-card-inner">
+            <div class="producer-img-small" id="map-card-img" style="background: url('https://images.unsplash.com/photo-1447933601403-56dc2b3bf4f2?w=100&h=100&fit=crop') center/cover"></div>
+            <div class="map-card-info">
+              <h3 id="map-card-name">Don Manuel - Cafe de Altura</h3>
+              <div class="producer-meta">
+                <span class="rating"><i class="lucide lucide-star"></i> <span id="map-card-rating">4.9</span></span>
+                <span class="distance" id="map-card-distance">1.2 km</span>
+              </div>
+              <span class="badge-digital" id="map-card-badge">Acepta pago digital</span>
+            </div>
+          </div>
+          <div class="map-card-actions">
+            <button class="btn-sm btn-accent" onclick="navigateTo('screen-navegacion')"><i class="lucide lucide-navigation"></i> Ir</button>
+            <button class="btn-sm btn-outline" onclick="navigateTo('screen-pago')"><i class="lucide lucide-credit-card"></i> Pagar</button>
+            <button class="btn-sm btn-outline" onclick="navigateTo('screen-perfil')"><i class="lucide lucide-star"></i> Ver perfil</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab" onclick="navigateTo('screen-home')">
+          <i class="material-symbols-rounded">explore</i>
+          <span>Descubrir</span>
+        </div>
+        <div class="tab active" onclick="navigateTo('screen-mapa')">
+          <i class="material-symbols-rounded">map</i>
+          <span>Mapa</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-escaneo')">
+          <i class="material-symbols-rounded">qr_code_scanner</i>
+          <span>Escanear</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-rutas')">
+          <i class="material-symbols-rounded">route</i>
+          <span>Rutas</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-pago')">
+          <i class="material-symbols-rounded">payments</i>
+          <span>Pagar</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SCREEN: PERFIL PRODUCTOR ============ -->
+    <div class="screen" id="screen-perfil">
+      <div class="perfil-hero" style="background: url('https://images.unsplash.com/photo-1524350876685-274059332603?w=500&h=300&fit=crop') center/cover">
+        <div class="perfil-hero-overlay">
+          <i class="material-symbols-rounded back-btn light" onclick="goBack()">arrow_back</i>
+        </div>
+      </div>
+
+      <div class="perfil-content">
+        <div class="perfil-header">
+          <div>
+            <h1>Don Manuel Rodriguez</h1>
+            <span class="perfil-type">Productor de cafe de altura · Copan Ruinas</span>
+          </div>
+          <div class="perfil-rating">
+            <i class="lucide lucide-star"></i> 4.9
+          </div>
+        </div>
+
+        <div class="perfil-badges">
+          <span class="perfil-badge"><i class="lucide lucide-map-pin"></i> 1.2 mis</span>
+          <span class="perfil-badge"><i class="lucide lucide-credit-card"></i> Pago digital</span>
+          <span class="perfil-badge"><i class="lucide lucide-clock"></i> Abierto</span>
+        </div>
+
+        <div class="perfil-section">
+          <h2>La historia de Don Manuel</h2>
+          <p>Tres generaciones cultivando cafe en las montanas de Copan. Antes los turistas pasaban de largo sin saber que existiamos. Ahora pueden probar nuestro cafe directamente en la finca.</p>
+        </div>
+
+        <div class="perfil-gallery">
+          <div class="gallery-img" style="background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=200&h=200&fit=crop') center/cover"></div>
+          <div class="gallery-img" style="background: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=200&h=200&fit=crop') center/cover"></div>
+          <div class="gallery-img" style="background: url('https://images.unsplash.com/photo-1447933601403-56dc2b3bf4f2?w=200&h=200&fit=crop') center/cover"></div>
+        </div>
+
+        <div class="perfil-actions">
+          <div class="action-btn" onclick="showToast('Mostrando productos...')">
+            <i class="lucide lucide-package"></i>
+            <span>Productos</span>
+          </div>
+          <div class="action-btn" onclick="showToast('Menu disponible proximamente')">
+            <i class="lucide lucide-utensils"></i>
+            <span>Menu</span>
+          </div>
+          <div class="action-btn action-highlight" onclick="navigateTo('screen-pago')">
+            <i class="lucide lucide-wallet"></i>
+            <span>Pagar</span>
+          </div>
+          <div class="action-btn" onclick="navigateTo('screen-navegacion')">
+            <i class="lucide lucide-navigation"></i>
+            <span>Navegar</span>
+          </div>
+        </div>
+
+        <div class="impact-card">
+          <h3>Tu compra apoya directamente a:</h3>
+          <p>La familia Rodriguez y 3 trabajadores locales que dependen de esta finca. El 100% del pago llega al productor.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SCREEN: PAGO ============ -->
+    <div class="screen" id="screen-pago">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <i class="lucide lucide-signal"></i>
+          <i class="lucide lucide-wifi"></i>
+          <i class="lucide lucide-battery-full"></i>
+        </div>
+      </div>
+
+      <div class="inner-header">
+        <div class="inner-header-row">
+          <i class="material-symbols-rounded back-btn" onclick="pagoGoBack()">arrow_back</i>
+          <h2>Pagar sin efectivo</h2>
+        </div>
+      </div>
+
+      <!-- LISTA DE PRODUCTORES PARA PAGAR -->
+      <div class="content-scroll" id="pago-lista">
+        <div class="pago-tip">
+          <div class="pago-tip-icon"><i class="lucide lucide-sparkles"></i></div>
+          <div>
+            <strong>Sin efectivo? No hay problema</strong>
+            <p>Selecciona a quien deseas pagar</p>
+          </div>
+        </div>
+
+        <h3 class="section-title">Pagos pendientes</h3>
+
+        <div class="pago-select-card" onclick="showPagoDetail(0)">
+          <div class="pago-select-icon" style="background:#6F4E37">☕</div>
+          <div class="pago-select-info">
+            <strong>Don Manuel - Cafe de Altura</strong>
+            <span>Tour + Degustacion</span>
+          </div>
+          <div class="pago-select-amount">L 385</div>
+        </div>
+
+        <div class="pago-select-card" onclick="showPagoDetail(1)">
+          <div class="pago-select-icon" style="background:#8B4513">🍫</div>
+          <div class="pago-select-info">
+            <strong>Chocolates Dona Lupita</strong>
+            <span>Taller de chocolate</span>
+          </div>
+          <div class="pago-select-amount">L 250</div>
+        </div>
+
+        <div class="pago-select-card" onclick="showPagoDetail(2)">
+          <div class="pago-select-icon" style="background:#D4A24E">🍽️</div>
+          <div class="pago-select-info">
+            <strong>Baleadas Tia Carmen</strong>
+            <span>Almuerzo familiar</span>
+          </div>
+          <div class="pago-select-amount">L 180</div>
+        </div>
+
+        <div class="pago-select-card" onclick="showPagoDetail(3)">
+          <div class="pago-select-icon" style="background:#3A7D44">🍯</div>
+          <div class="pago-select-info">
+            <strong>Miel Los Pinos</strong>
+            <span>Compra de productos</span>
+          </div>
+          <div class="pago-select-amount">L 320</div>
+        </div>
+
+        <div class="pago-select-card" onclick="showPagoDetail(4)">
+          <div class="pago-select-icon" style="background:#6F4E37">☕</div>
+          <div class="pago-select-info">
+            <strong>Finca Santa Elena</strong>
+            <span>Tour de cafe + bolsa 1lb</span>
+          </div>
+          <div class="pago-select-amount">L 450</div>
+        </div>
+      </div>
+
+      <!-- DETALLE DE PAGO (oculto por defecto) -->
+      <div class="content-scroll" id="pago-detalle" style="display:none">
+        <div class="pago-producer">
+          <div class="pago-producer-dot"></div>
+          <div>
+            <strong id="pago-detail-name">Don Manuel - Cafe de Altura</strong>
+            <span id="pago-detail-sub">Tour + Degustacion</span>
+          </div>
+        </div>
+
+        <div class="pago-items" id="pago-detail-items">
+          <!-- Items dinamicos -->
+        </div>
+
+        <h3 class="pago-method-title">Metodo de pago</h3>
+
+        <div class="pago-methods">
+          <label class="pago-method selected" onclick="selectPayment(this)">
+            <i class="lucide lucide-credit-card"></i>
+            <span>Tarjeta debito/credito</span>
+            <div class="radio-dot checked"></div>
+          </label>
+          <label class="pago-method" onclick="selectPayment(this)">
+            <i class="lucide lucide-smartphone"></i>
+            <span>Wallet digital (Tigo Money)</span>
+            <div class="radio-dot"></div>
+          </label>
+          <label class="pago-method" onclick="selectPayment(this)">
+            <i class="lucide lucide-building-2"></i>
+            <span>Transferencia bancaria</span>
+            <div class="radio-dot"></div>
+          </label>
+        </div>
+      </div>
+
+      <div class="bottom-action" id="pago-detail-btn" style="display:none">
+        <button class="btn-primary" id="pago-btn-text" onclick="simulatePayment()">
+          <i class="lucide lucide-lock"></i> Pagar ahora - L 385
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ SCREEN: ESCANEO QR ============ -->
+    <div class="screen" id="screen-escaneo">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <i class="lucide lucide-signal"></i>
+          <i class="lucide lucide-wifi"></i>
+          <i class="lucide lucide-battery-full"></i>
+        </div>
+      </div>
+
+      <div class="inner-header center">
+        <i class="material-symbols-rounded back-btn" onclick="goBack()">arrow_back</i>
+        <h2>Escanear QR</h2>
+        <i class="lucide lucide-help-circle" style="font-size:20px;color:var(--text-muted)" onclick="showToast('Apunta al codigo QR del productor')"></i>
+      </div>
+
+      <div class="content-scroll">
+        <div class="qr-hint">
+          <i class="lucide lucide-sparkles"></i>
+          Apunta al codigo QR del productor
+        </div>
+
+        <div class="qr-scanner">
+          <div class="qr-frame">
+            <div class="qr-corner tl"></div>
+            <div class="qr-corner tr"></div>
+            <div class="qr-corner bl"></div>
+            <div class="qr-corner br"></div>
+            <div class="qr-line"></div>
+            <div class="qr-center-icon">
+              <i class="lucide lucide-scan"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="qr-steps">
+          <h3>Como funciona</h3>
+          <div class="qr-step">
+            <div class="step-num">1</div>
+            <div>
+              <strong>Busca el QR en el local</strong>
+              <p>Cada productor tiene un codigo unico en su puesto</p>
+            </div>
+          </div>
+          <div class="qr-step">
+            <div class="step-num">2</div>
+            <div>
+              <strong>Escanea y conoce su historia</strong>
+              <p>Ve su perfil, menu y resenas de otros turistas</p>
+            </div>
+          </div>
+          <div class="qr-step">
+            <div class="step-num">3</div>
+            <div>
+              <strong>Paga sin efectivo al instante</strong>
+              <p>Tarjeta, Tigo Money o billetera digital</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qr-search-link" onclick="showSearchModal()">
+          <i class="lucide lucide-search"></i>
+          No ves el QR? Busca al productor por nombre
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab" onclick="navigateTo('screen-home')">
+          <i class="material-symbols-rounded">explore</i>
+          <span>Descubrir</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-mapa')">
+          <i class="material-symbols-rounded">map</i>
+          <span>Mapa</span>
+        </div>
+        <div class="tab active" onclick="navigateTo('screen-escaneo')">
+          <i class="material-symbols-rounded">qr_code_scanner</i>
+          <span>Escanear</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-rutas')">
+          <i class="material-symbols-rounded">route</i>
+          <span>Rutas</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-pago')">
+          <i class="material-symbols-rounded">payments</i>
+          <span>Pagar</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SCREEN: RUTAS ============ -->
+    <div class="screen" id="screen-rutas">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <i class="lucide lucide-signal"></i>
+          <i class="lucide lucide-wifi"></i>
+          <i class="lucide lucide-battery-full"></i>
+        </div>
+      </div>
+
+      <div class="inner-header center">
+        <i class="material-symbols-rounded back-btn" onclick="rutasGoBack()">arrow_back</i>
+        <h2>Rutas de Sabor</h2>
+        <i class="lucide lucide-sliders-horizontal" style="font-size:20px;color:var(--text-sec)"></i>
+      </div>
+
+      <!-- LISTA DE RUTAS -->
+      <div class="content-scroll" id="rutas-lista">
+        <div class="ruta-featured" onclick="showRutaDetail(0)" style="background: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=500&h=200&fit=crop') center/cover">
+          <div class="ruta-featured-overlay">
+            <span class="ruta-badge">RUTA POPULAR</span>
+            <h3>Ruta del Cafe de Copan</h3>
+            <div class="ruta-meta">3h 30min · 5 paradas · 12 km</div>
+          </div>
+        </div>
+
+        <h3 class="section-title">Mas rutas para explorar</h3>
+
+        <div class="ruta-list-card" onclick="showRutaDetail(1)">
+          <div class="ruta-list-img" style="background: url('https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200&h=120&fit=crop') center/cover"></div>
+          <div class="ruta-list-info">
+            <h4>Ruta del Cacao Lenca</h4>
+            <span class="ruta-list-meta">2h 45min · 4 paradas · 9 km</span>
+            <div class="ruta-list-tags">
+              <span class="tag">Cacao</span>
+              <span class="tag">Chocolate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ruta-list-card" onclick="showRutaDetail(2)">
+          <div class="ruta-list-img" style="background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=120&fit=crop') center/cover"></div>
+          <div class="ruta-list-info">
+            <h4>Sabores de Copan Ruinas</h4>
+            <span class="ruta-list-meta">4h · 6 paradas · 8 km</span>
+            <div class="ruta-list-tags">
+              <span class="tag">Comida</span>
+              <span class="tag">Tipico</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ruta-list-card" onclick="showRutaDetail(3)">
+          <div class="ruta-list-img" style="background: url('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=200&h=120&fit=crop') center/cover"></div>
+          <div class="ruta-list-info">
+            <h4>Ruta Artesanal y Natural</h4>
+            <span class="ruta-list-meta">3h · 4 paradas · 10 km</span>
+            <div class="ruta-list-tags">
+              <span class="tag">Miel</span>
+              <span class="tag">Artesania</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ruta-list-card" onclick="showRutaDetail(4)">
+          <div class="ruta-list-img" style="background: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=200&h=120&fit=crop') center/cover"></div>
+          <div class="ruta-list-info">
+            <h4>Ruta Completa del Valle</h4>
+            <span class="ruta-list-meta">5h 30min · 8 paradas · 18 km</span>
+            <div class="ruta-list-tags">
+              <span class="tag">Cafe</span>
+              <span class="tag">Cacao</span>
+              <span class="tag">Comida</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETALLE DE RUTA (oculto por defecto) -->
+      <div class="content-scroll" id="ruta-detalle" style="display:none">
+        <div class="ruta-featured" id="ruta-detail-hero" style="background: url('') center/cover">
+          <div class="ruta-featured-overlay">
+            <span class="ruta-badge" id="ruta-detail-badge">RUTA POPULAR</span>
+            <h3 id="ruta-detail-title">Ruta del Cafe de Copan</h3>
+            <div class="ruta-meta" id="ruta-detail-meta">3h 30min · 5 paradas · 12 km</div>
+          </div>
+        </div>
+
+        <div class="ruta-date-picker">
+          <i class="lucide lucide-calendar"></i>
+          <div class="ruta-date-info">
+            <span class="ruta-date-label">Selecciona una fecha</span>
+            <input type="date" class="ruta-date-input" id="ruta-date-input" onchange="onRutaDateChange(this.value)">
+          </div>
+          <span class="ruta-date-selected" id="ruta-date-selected"></span>
+        </div>
+
+        <h3 class="section-title">Paradas en esta ruta</h3>
+
+        <div class="ruta-stops" id="ruta-detail-stops">
+          <!-- Paradas se llenan dinamicamente -->
+        </div>
+
+        <button class="btn-primary" id="ruta-detail-btn" onclick="startRuta()">
+          <i class="lucide lucide-navigation"></i> Iniciar Ruta
+        </button>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab" onclick="navigateTo('screen-home')">
+          <i class="material-symbols-rounded">explore</i>
+          <span>Descubrir</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-mapa')">
+          <i class="material-symbols-rounded">map</i>
+          <span>Mapa</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-escaneo')">
+          <i class="material-symbols-rounded">qr_code_scanner</i>
+          <span>Escanear</span>
+        </div>
+        <div class="tab active" onclick="navigateTo('screen-rutas')">
+          <i class="material-symbols-rounded">route</i>
+          <span>Rutas</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-pago')">
+          <i class="material-symbols-rounded">payments</i>
+          <span>Pagar</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SCREEN: RESENAS ============ -->
+    <div class="screen" id="screen-resenas">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <i class="lucide lucide-signal"></i>
+          <i class="lucide lucide-wifi"></i>
+          <i class="lucide lucide-battery-full"></i>
+        </div>
+      </div>
+
+      <div class="inner-header center">
+        <i class="material-symbols-rounded back-btn" onclick="goBack()">arrow_back</i>
+        <h2>Resenas y Comunidad</h2>
+        <i class="lucide lucide-pen-line" style="font-size:20px;color:var(--accent)" onclick="showReviewModal()"></i>
+      </div>
+
+      <div class="content-scroll">
+        <div class="review-summary">
+          <div class="review-score">
+            <span class="big-score">4.8</span>
+            <div class="stars">
+              <div class="star-row"><span>5</span><div class="star-bar"><div class="star-fill" style="width:75%"></div></div></div>
+              <div class="star-row"><span>4</span><div class="star-bar"><div class="star-fill" style="width:50%"></div></div></div>
+              <div class="star-row"><span>3</span><div class="star-bar"><div class="star-fill" style="width:20%"></div></div></div>
+              <div class="star-row"><span>2</span><div class="star-bar"><div class="star-fill" style="width:5%"></div></div></div>
+              <div class="star-row"><span>1</span><div class="star-bar"><div class="star-fill" style="width:2%"></div></div></div>
+            </div>
+          </div>
+          <span class="review-count">234 resenas de turistas</span>
+        </div>
+
+        <div class="impact-banner compact">
+          <div class="impact-icon small"><i class="lucide lucide-heart"></i></div>
+          <div class="impact-stats">
+            <span class="stat-title">Tu apoyo transforma vidas</span>
+            <div class="stat-row">
+              <div class="stat"><strong>L 45,230</strong><small>generados</small></div>
+              <div class="stat"><strong>87</strong><small>productores</small></div>
+              <div class="stat"><strong>1,240</strong><small>turistas</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reviews-header">
+          <h3>Resenas recientes</h3>
+          <select class="sort-select">
+            <option>Mas recientes</option>
+            <option>Mejor puntuadas</option>
+          </select>
+        </div>
+
+        <div class="review-card">
+          <div class="review-avatar" style="background:#3A7D44">SC</div>
+          <div class="review-body">
+            <div class="review-top">
+              <strong>Sarah Chen</strong>
+              <span class="review-stars">★★★★★</span>
+              <span class="review-date">hace 2 dias</span>
+            </div>
+            <p>Increible experiencia! Don Pedro nos mostro todo el proceso del cafe. Pague con tarjeta sin problema.</p>
+            <div class="review-location">
+              <i class="lucide lucide-map-pin"></i> Finca Don Pedro, Copan
+            </div>
+            <div class="review-actions">
+              <span class="review-like" onclick="toggleLike(this)"><i class="lucide lucide-thumbs-up"></i> 24</span>
+              <span class="review-util" onclick="showToast('Marcado como util')">Util</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-avatar" style="background:#D4A24E">MJ</div>
+          <div class="review-body">
+            <div class="review-top">
+              <strong>Marco Jensen</strong>
+              <span class="review-stars">★★★★☆</span>
+              <span class="review-date">hace 5 dias</span>
+            </div>
+            <p>Las baleadas de Dona Maria son las mejores. Gracias a esta app encontre su comedor que no aparece en ningun mapa.</p>
+            <div class="review-location">
+              <i class="lucide lucide-map-pin"></i> Comedor Dona Maria, Copan
+            </div>
+            <div class="review-actions">
+              <span class="review-like" onclick="toggleLike(this)"><i class="lucide lucide-thumbs-up"></i> 18</span>
+              <span class="review-util" onclick="showToast('Marcado como util')">Util</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab" onclick="navigateTo('screen-home')">
+          <i class="material-symbols-rounded">explore</i>
+          <span>Descubrir</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-mapa')">
+          <i class="material-symbols-rounded">map</i>
+          <span>Mapa</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-escaneo')">
+          <i class="material-symbols-rounded">qr_code_scanner</i>
+          <span>Escanear</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-rutas')">
+          <i class="material-symbols-rounded">route</i>
+          <span>Rutas</span>
+        </div>
+        <div class="tab" onclick="navigateTo('screen-pago')">
+          <i class="material-symbols-rounded">payments</i>
+          <span>Pagar</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SCREEN: NAVEGACION ============ -->
+    <div class="screen" id="screen-navegacion">
+      <div class="nav-top-bar">
+        <div class="nav-top-left">
+          <i class="material-symbols-rounded back-btn light" onclick="goBack()">arrow_back</i>
+          <div>
+            <strong>12 min · 1.2 km</strong>
+            <span>Finca Don Manuel · Cafe de Altura</span>
+          </div>
+        </div>
+        <i class="lucide lucide-x" onclick="goBack()" style="color:#fff;font-size:20px;cursor:pointer"></i>
+      </div>
+
+      <div class="nav-instruction">
+        <i class="lucide lucide-corner-up-right"></i>
+        <div>
+          <strong>En 200 m</strong>
+          <span>Gira a la derecha en Calle Principal</span>
+        </div>
+      </div>
+
+      <div class="nav-map-area">
+        <div class="nav-map-placeholder">
+          <div class="nav-dot"></div>
+          <div class="nav-path"></div>
+          <p class="nav-map-text">Vista de navegacion</p>
+        </div>
+      </div>
+
+      <div class="nav-bottom">
+        <div class="nav-eta">
+          <span class="nav-eta-label">Llegada estimada</span>
+          <div class="nav-eta-row">
+            <span class="nav-eta-time">10:53 AM</span>
+            <span class="nav-eta-mode"><i class="lucide lucide-footprints"></i> A pie</span>
+          </div>
+        </div>
+        <div class="nav-dest">
+          <div class="nav-dest-dot"></div>
+          <div>
+            <strong>Finca Don Manuel</strong>
+            <span>Camino a Las Ruinas, Copan Ruinas</span>
+            <span class="nav-open">● Abierto hasta 5:00 PM</span>
+          </div>
+        </div>
+        <button class="btn-outline-full red" onclick="goBack()">
+          <i class="lucide lucide-x"></i> Cancelar navegacion
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ SCREEN: CREAR RUTA ============ -->
+    <div class="screen" id="screen-crear-ruta">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <i class="lucide lucide-signal"></i>
+          <i class="lucide lucide-wifi"></i>
+          <i class="lucide lucide-battery-full"></i>
+        </div>
+      </div>
+
+      <div class="inner-header center">
+        <i class="material-symbols-rounded back-btn" onclick="goBack()">arrow_back</i>
+        <h2>Crear Ruta</h2>
+        <span class="header-action" onclick="clearRoute()">Limpiar</span>
+      </div>
+
+      <div class="content-scroll">
+        <div class="search-bar" style="margin-bottom:12px">
+          <i class="lucide lucide-search"></i>
+          <input type="text" placeholder="Buscar productores para agregar" class="search-input" oninput="filterProducers(this.value)">
+        </div>
+
+        <div class="route-summary" id="route-summary">
+          <i class="lucide lucide-check-circle" style="color:var(--green)"></i>
+          <span id="route-count">3 paradas seleccionadas</span>
+          <span class="route-time" id="route-time">~2h 15min</span>
+        </div>
+
+        <h3 class="section-title">Productores disponibles</h3>
+
+        <div class="route-producers" id="route-producers">
+          <div class="route-producer selected" onclick="toggleRouteStop(this)">
+            <div class="route-check"><span>1</span></div>
+            <div class="route-prod-info">
+              <strong>Finca Don Pedro - Cafe</strong>
+              <span>1.2 km · 30 min visita</span>
+            </div>
+          </div>
+          <div class="route-producer selected" onclick="toggleRouteStop(this)">
+            <div class="route-check"><span>2</span></div>
+            <div class="route-prod-info">
+              <strong>Comedor Dona Maria</strong>
+              <span>2.5 km · 45 min visita</span>
+            </div>
+          </div>
+          <div class="route-producer selected" onclick="toggleRouteStop(this)">
+            <div class="route-check"><span>3</span></div>
+            <div class="route-prod-info">
+              <strong>Taller Ceramica Lenca</strong>
+              <span>3.8 km · 40 min visita</span>
+            </div>
+          </div>
+          <div class="route-producer" onclick="toggleRouteStop(this)">
+            <div class="route-check empty"></div>
+            <div class="route-prod-info">
+              <strong>Honey Farm Los Pinos</strong>
+              <span>5.1 km · 25 min visita</span>
+            </div>
+          </div>
+          <div class="route-producer" onclick="toggleRouteStop(this)">
+            <div class="route-check empty"></div>
+            <div class="route-prod-info">
+              <strong>Cacao Fino Don Jose</strong>
+              <span>4.3 km · 35 min visita</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-action">
+        <button class="btn-primary" onclick="generateRoute()">
+          <i class="lucide lucide-route"></i> Generar Ruta (<span id="gen-count">3</span> paradas)
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ MODALS & OVERLAYS ============ -->
+    <div class="toast" id="toast"></div>
+
+    <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h3 id="modal-title">Buscar Productor</h3>
+          <i class="lucide lucide-x" onclick="closeModal()"></i>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <input type="text" class="modal-input" placeholder="Nombre del productor...">
+          <div class="modal-results">
+            <div class="modal-result" onclick="navigateTo('screen-perfil'); closeModal()">
+              <strong>Don Manuel - Cafe de Altura</strong>
+              <span>Copan Ruinas · 1.2 km</span>
+            </div>
+            <div class="modal-result" onclick="navigateTo('screen-perfil'); closeModal()">
+              <strong>Comedor Dona Rosa</strong>
+              <span>Santa Rosa de Copan · 3.5 km</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Success Modal -->
+    <div class="modal-overlay" id="payment-success" onclick="closePaymentSuccess()">
+      <div class="payment-success-card" onclick="event.stopPropagation()">
+        <div class="success-icon"><i class="lucide lucide-check-circle"></i></div>
+        <h2>Pago exitoso!</h2>
+        <p>L 385 enviados a Don Manuel</p>
+        <span class="success-sub">El 100% llega directo al productor</span>
+        <div class="success-receipt">
+          <span>Referencia: #RS-2024-0847</span>
+          <span>8 Mar 2026 · 10:42 AM</span>
+        </div>
+        <button class="btn-primary" onclick="closePaymentSuccess(); navigateTo('screen-resenas')">
+          <i class="lucide lucide-star"></i> Dejar resena
+        </button>
+        <button class="btn-outline-full" onclick="closePaymentSuccess(); navigateTo('screen-home')">
+          Volver al inicio
+        </button>
+      </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div class="modal-overlay" id="review-modal" onclick="closeReviewModal()">
+      <div class="modal review-modal-inner" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Escribir resena</h3>
+          <i class="lucide lucide-x" onclick="closeReviewModal()"></i>
+        </div>
+        <div class="modal-body">
+          <div class="review-star-input">
+            <span class="star-input" onclick="setRating(1)">★</span>
+            <span class="star-input" onclick="setRating(2)">★</span>
+            <span class="star-input" onclick="setRating(3)">★</span>
+            <span class="star-input active" onclick="setRating(4)">★</span>
+            <span class="star-input active" onclick="setRating(5)">★</span>
+          </div>
+          <textarea class="review-textarea" placeholder="Cuenta tu experiencia..."></textarea>
+          <button class="btn-primary" onclick="submitReview()">Publicar resena</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/mapa.js"></script>
+  <script src="js/pago.js"></script>
+  <script src="js/modals.js"></script>
+  <script src="js/resenas.js"></script>
+  <script src="js/crear-ruta.js"></script>
+  <script src="js/rutas.js"></script>
+  <script src="js/escaneo.js"></script>
+  <script src="js/time.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
